@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "brcypt": "^1.0.1",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.15",
     "nodemon": "^2.0.4"
