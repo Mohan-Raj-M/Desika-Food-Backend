@@ -1,18 +1,18 @@
 const mongoose = require('mongoose')
 
-const productSchema = new mongoose.Schema({
+const reviewSchema = new mongoose.Schema({
+    email : {
+        type : String,
+        trim : true,
+        required : true
+    },
     name : {
         type : String,
         trim : true,
-        required : true
+        default : this.email
     },
-    description : {
+    message : {
         type : String,
-        trim : true,
-        required : true
-    },
-    price : {
-        type : Number,
         required : true,
         validate(value) {
             if (value < 0) {
@@ -22,6 +22,6 @@ const productSchema = new mongoose.Schema({
     }
 })
 
-const Product = mongoose.model('Product', productSchema)
+const Review = mongoose.model('Task', reviewSchema)
 
-module.exports = Product
+module.exports = Review

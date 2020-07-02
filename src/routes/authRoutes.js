@@ -23,7 +23,7 @@ router.post('/login',async (req,res) => {
         );
         console.log(user);
         const token = jwt.sign({ userId: user._id }, "MY_SECRET_KEY");
-    res.status(400).send({ success:true });
+    res.status(200).send({ success:true });
     } catch(error) {
         return res.status(400).send({success:false, error:"Cannot login" });
     }

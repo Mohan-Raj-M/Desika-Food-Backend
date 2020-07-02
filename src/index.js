@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
+const reviewRoute = require('./routes/reviewroutes')
 const requireAuth=require("./middleware/requireAuth")
 require("./models/User");
 require("./mongo")
