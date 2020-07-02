@@ -14,8 +14,13 @@ router.post('/review/givereview', auth, async (req, res) => {
 })
 
 router.get('/review/seereviews', async (req, res) => {
-    const reviews = await Review.find()
+    const reviews = await Review.find({})
     res.send(reviews)
+})
+
+router.get('/review/seelatestreviews', async (req, res) => {
+    const reviews = await Review.find({}).reverse()
+    res.send(reviews).limit(5)
 })
 
 module.exports = router
