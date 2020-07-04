@@ -14,14 +14,9 @@ const reviewSchema = new mongoose.Schema({
     message : {
         type : String,
         required : true,
-        validate(value) {
-            if (value < 0) {
-                throw new Error('Price cannot be negative')
-            }
-        }
     }
 })
 
-const Review = mongoose.model('Task', reviewSchema)
+const Review = mongoose.model('Review', reviewSchema)
 
 module.exports = Review
