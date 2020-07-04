@@ -16,7 +16,7 @@ router.get('/profile/getprofile', auth, async (req, res) => {
 router.patch('/profile/editprofile', auth, async (req, res) => {
     const updates = Object.keys(req.body)
     try {
-        const profile = Profile.findOne({ email : req.user.email })
+        const profile = await Profile.findOne({ email : req.user.email })
         updates.forEach((update) => profile[update] = req.body[update])
         await profile.save()
         res.send()
@@ -24,3 +24,5 @@ router.patch('/profile/editprofile', auth, async (req, res) => {
         res.status(400).send({ error : e.message })
     }
 })
+
+module.exports = router
