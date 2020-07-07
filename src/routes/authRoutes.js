@@ -7,14 +7,10 @@ const jwt = require("jsonwebtoken");
 
 router.post('/registerUser',async (req, res) => {
     const user = new User(req.body);
-    const prof = {
-        email : req.body.email,
-        number : req.body.number
-    }
-    const profile = new Profile(prof) 
+   
     try {
         await user.save();
-        await profile.save()
+        
         const token = jwt.sign({ userId: user._id }, "MY_SECRET_KEY");
         res.send({ token });
     } catch(error) {
