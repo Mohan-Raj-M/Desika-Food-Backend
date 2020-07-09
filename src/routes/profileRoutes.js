@@ -3,6 +3,16 @@ const Profile = require('../models/profile')
 const auth = require('../middleware/requireAuth')
 const router = new express.Router()
 
+router.post('/profile/saveprofile', auth, async (req, res) => {
+    const profile = await Profile(req.body)
+    try {
+        await profile.save()
+        res.status(200).send('Profile saved successfully!!')
+    } catch (e) {
+        res.status(400).send(e.message)
+    }
+})
+
 router.get('/profile/getprofile', auth, async (req, res) => {
     try {
         const profile = await Profile.findOne({ email : req.user.email })

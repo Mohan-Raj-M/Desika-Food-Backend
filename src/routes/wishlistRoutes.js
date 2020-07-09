@@ -9,9 +9,9 @@ router.post('/wishlist/storewish/:id', auth, async (req, res) => {
     const productId = req.params.id
 
     try {
-        const product = await Product.findById({ _id = productId })
+        const product = await Product.findOne({ id = productId })
         const wish = new Wishlist ({
-            name : product.name,
+            name : product.id,
             description : product.description,
             price : product.price,
             wisherEmail : req.user.email
