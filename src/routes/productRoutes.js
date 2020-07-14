@@ -1,6 +1,6 @@
 const express = require('express')
 const Product = require('../models/Products')
-const auth = require('../middleware/requireAuth')
+const auth = require('../middleware/adminAuth')
 const router = new express.Router()
 
 router.post('/product/uploadproducts', auth, async (req, res) => {
