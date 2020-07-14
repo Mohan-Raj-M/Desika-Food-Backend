@@ -19,6 +19,9 @@ const productSchema = new mongoose.Schema({
                 throw new Error('Price cannot be negative')
             }
         }
+    },
+    img : {
+        type : Buffer
     }
 })
 
