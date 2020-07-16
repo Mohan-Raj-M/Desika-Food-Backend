@@ -14,18 +14,24 @@ router.post("/product/orderProducts", requireAuth, async (req, res) => {
   }
 });
 
-router.get("/product/orderedProducts/:email", requireAuth, async (req, res) => {
+router.get('/product/orderedproducts', requireAuth, async (req, res) => {
   try {
-    const orders = await Order.find({ email: req.params.email });
+      const orders = await Order.find({ email : req.user.email })
 
-    if (orders === undefined) {
-      throw new Error("Orderlist empty");
-    }
+      if(orders === undefined) {
+          throw new Error('Orderlist empty')
+      }
 
-    res.send(orders);
+      const products = []
+      for (let i = 0; i < orders.length; i++) {
+          const product = await Product.findOne({ _id : orders[i].productId})
+          products.push(product)
+      }
+
+      res.send(products)
   } catch (e) {
-    res.status(400).send();
+      res.status(400).send()
   }
-});
+})
 
 module.exports = router;

@@ -1,13 +1,11 @@
 const express = require('express')
 const Product = require('../models/Products')
-const Order = require('../models/Order')
 const auth = require('../middleware/adminAuth')
-const userAuth = require('../middleware/requireAuth')
 const sharp = require('sharp')
 const multer =require('multer')
 const router = new express.Router()
 
-router.post('/product/uploadproducts', userAuth, async (req, res) => {
+router.post('/product/uploadproducts', auth, async (req, res) => {
     const product = new Product(req.body)
     try {
         await product.save()
@@ -30,7 +28,7 @@ const upload = multer({
     }
 })
 
-router.post('/products/img/:id',userAuth,upload.single('img'), async (req, res) => {
+router.post('/products/img/:id',auth,upload.single('img'), async (req, res) => {
     const buffer = await sharp(req.file.buffer).png().toBuffer()
     const product = await findOne({ id : req.params.id })
     product.img = buffer
