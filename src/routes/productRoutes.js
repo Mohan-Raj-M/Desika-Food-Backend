@@ -4,9 +4,10 @@ const Order = require('../models/Order')
 const auth = require('../middleware/adminAuth')
 const userAuth = require('../middleware/requireAuth')
 const sharp = require('sharp')
+const multer =require('multer')
 const router = new express.Router()
 
-router.post('/product/uploadproducts', auth, async (req, res) => {
+router.post('/product/uploadproducts', userAuth, async (req, res) => {
     const product = new Product(req.body)
     try {
         await product.save()
@@ -29,9 +30,9 @@ const upload = multer({
     }
 })
 
-router.post('/products/img/:id', auth, upload.single('img'), async (req, res) => {
+router.post('/products/img/:id',userAuth,upload.single('img'), async (req, res) => {
     const buffer = await sharp(req.file.buffer).png().toBuffer()
-    const product = await findOne({ _id : req.params.id })
+    const product = await findOne({ id : req.params.id })
     product.img = buffer
     await product.save()
     res.send()
@@ -39,24 +40,5 @@ router.post('/products/img/:id', auth, upload.single('img'), async (req, res) =>
     res.status(400).send({ error : error.message })
 })
 
-router.get('/product/orderedproducts', userAuth, async (req, res) => {
-    try {
-        const orders = await Order.find({ email : req.user.email })
-
-        if(orders === undefined) {
-            throw new Error('Orderlist empty')
-        }
-
-        const products = []
-        for (let i = 0; i < orders.length; i++) {
-            const product = await Product.findOne({ _id : orders[i].productId})
-            products.push(product)
-        }
-
-        res.send(products)
-    } catch (e) {
-        res.status(400).send()
-    }
-})
 
 module.exports = router;
