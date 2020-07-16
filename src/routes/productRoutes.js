@@ -4,7 +4,6 @@ const Order = require('../models/Order')
 const auth = require('../middleware/adminAuth')
 const userAuth = require('../middleware/requireAuth')
 const sharp = require('sharp')
-const { findOne } = require('../models/Products')
 const router = new express.Router()
 
 router.post('/product/uploadproducts', auth, async (req, res) => {
