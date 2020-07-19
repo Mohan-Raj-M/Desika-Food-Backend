@@ -34,4 +34,13 @@ router.get('/product/orderedproducts', requireAuth, async (req, res) => {
   }
 })
 
+router.get('/products', async (req, res) => {
+  try {
+    const products = await Product.find({})
+    res.send(products)
+  } catch (e) {
+    res.status(400).send(e.message)
+  }
+})
+
 module.exports = router;

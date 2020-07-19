@@ -3,6 +3,7 @@ const Product = require('../models/Products')
 const auth = require('../middleware/adminAuth')
 const sharp = require('sharp')
 const multer =require('multer')
+const { update } = require('../models/Products')
 const router = new express.Router()
 
 router.post('/product/uploadproducts', auth, async (req, res) => {
@@ -38,5 +39,22 @@ router.post('/products/img/:id',auth,upload.single('img'), async (req, res) => {
     res.status(400).send({ error : error.message })
 })
 
+
+router.patch('/products/editproduct/:id', auth, async (req, res) => {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['description', 'price', 'img']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+    if (!isValidOperation) {
+        return res.status(400).send({ error : 'Invalid updates!!'})
+    }
+    try {
+        const product = await Product.findOne({id : req.params.id})
+        update.updates.forEach(update => product[update] = req.body[update])
+        res.send()
+    } catch (e) {
+        res.status(400).send(e.message)
+    }
+})
 
 module.exports = router;
