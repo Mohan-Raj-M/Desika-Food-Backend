@@ -22,6 +22,13 @@ const productSchema = new mongoose.Schema({
     },
     img : {
         type : Buffer
+    },
+    rating: {
+        type: Number,
+        default: 5
+    },
+    category: {
+        type: String
     }
 })
 
