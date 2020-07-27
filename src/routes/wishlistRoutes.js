@@ -24,9 +24,9 @@ router.post('/wishlist/storewish/:id', auth, async (req, res) => {
     }
 })
 
-router.get('/wishlist/getwishlist', auth, async (req, res) => {
+router.get('/wishlist/getwishlist/:email', auth, async (req, res) => {
     try {
-        const wishlist = await Wishlist.find({ wisherEmail : req.user.email }).reverse()
+        const wishlist = await Wishlist.find({ wisherEmail : req.params.email }).reverse()
 
         res.send(wishlist)
     } catch (e) {
@@ -34,10 +34,10 @@ router.get('/wishlist/getwishlist', auth, async (req, res) => {
     }
 })
 
-router.delete('/wishlist/removewish/:id', auth, async (req, res) => {
+router.delete('/wishlist/removewish/:email', auth, async (req, res) => {
     try {
-        const { name } = await Product.findById({ _id = req.params.id })
-        await Wishlist.findOneAndDelete({ wisherEmail : req.user.email, name })
+        const { name } = await Product.findById({ email = req.params.email })
+        await Wishlist.findOneAndDelete({ wisherEmail : req.params.email, name })
         res.send()
     } catch (e) {
         res.status(400).send(e.message)

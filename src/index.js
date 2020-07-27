@@ -20,8 +20,12 @@ app.use(orderRoute);
 app.use(emailRoute)
 
 
-app.get("/",requireAuth, (req, res) => {
-  res.send(`Your email:${req.user.email}`);
+// app.get("/",requireAuth, (req, res) => {
+//   res.send(`Your email:${req.user.email}`);
+// });
+
+app.get("/", (req, res) => {
+  console.log("succesfully launced")
 });
 
 app.listen(3000, () => {
