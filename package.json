@@ -3,11 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "12.16.2",
+    "npm": "6.9.0",
+    "yarn": "1.21.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "build": "webpack",
-    "heroku-postbuild": "ng build --prod"
+    "build": "ng build",
+  "heroku-postbuild": "ng build --prod",
+  "heroku-prebuild": "echo This runs before Heroku installs dependencies.",
+  "heroku-postbuild": "echo This runs after Heroku installs dependencies, but before Heroku prunes and caches dependencies.",
+  "heroku-cleanup": "echo This runs after Heroku prunes and caches dependencies."
+    
   },
   "keywords": [],
   "author": "",
