@@ -20,13 +20,11 @@ app.use(orderRoute);
 
 
 
-// app.get("/",requireAuth, (req, res) => {
-//   res.send(`Your email:${req.user.email}`);
-// });
-
-app.get("/", (req, res) => {
-  console.log("succesfully launced")
+app.get("/",requireAuth, (req, res) => {
+  res.send(`Your email:${req.user.email}`);
 });
+
+
 
 app.listen(PORT, () => {
   console.log("App running on port 5000");
