@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 let mongouri =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV.toString() === "production"
     ? process.env.mongouri
     :'mongodb+srv://mohan:mohanraj@cluster0.77etd.mongodb.net/test?retryWrites=true&w=majority';
 
