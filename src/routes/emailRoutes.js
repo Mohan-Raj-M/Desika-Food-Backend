@@ -3,13 +3,17 @@ const router = express.Router()
 const jwt = require('jsonwebtoken')
 const User = require('../models/User')
 
-router.post('/verification/:email', async (req, res) => {
-    const email = req.params.email
-
+router.get('/verification/:token', async (req, res) => {
     try {
-        const user = await User.findOne({email:email})
-        user['valid'] = true
-        res.send("tour email registered sucessfully!!!!")
+        jwt.verify(req.params.token, "Email_auth_key", async (e, token) => {
+            if (e) {
+                return res.status(400).send({error: 'Invalid token'})
+            }
+
+            const {email} = token
+            await User.findOneAndUpdate({email}, {valid: true})
+            res.send({success: 'Email verified!'})
+        })
     } catch (e) {
         res.status(400).send(e.message)
     }
