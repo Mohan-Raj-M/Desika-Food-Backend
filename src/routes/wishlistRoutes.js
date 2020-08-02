@@ -9,6 +9,10 @@ router.post('/wishlist/storewish/:id', auth, async (req, res) => {
     const productId = req.params.id
 
     try {
+        if (!req.user.valid) {
+            alert('Please validate your mail')
+            location.href = '/'
+        }
         const product = await Product.findOne({ id = productId })
         const wish = new Wishlist ({
             name : product.id,

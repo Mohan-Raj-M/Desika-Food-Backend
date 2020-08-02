@@ -6,6 +6,10 @@ const router = new express.Router()
 router.post('/profile/saveprofile', auth, async (req, res) => {
     const profile = await Profile(req.body)
     try {
+        if (!req.user.valid) {
+            alert('Please validate your mail')
+            location.href = '/'
+        }
         await profile.save()
         res.status(200).send('Profile saved successfully!!')
     } catch (e) {

@@ -6,6 +6,10 @@ const router = new express.Router()
 router.post('/review/givereview', auth, async (req, res) => {
     const review = new Review(req.body)
     try {
+        if (!req.user.valid) {
+            alert('Please validate your mail')
+            location.href = '/'
+        }
         await review.save()
         res.status(200).send('Review successfully sent!')
     } catch (e) {
